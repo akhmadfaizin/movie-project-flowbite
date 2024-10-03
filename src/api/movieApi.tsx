@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://api.themoviedb.org/3/";
+const API_URL = import.meta.env.VITE_API_URL;
 const API_KEY = "api_key=" + import.meta.env.VITE_API_KEY;
 
 export const moviesList = async (pageNumber: number) => {

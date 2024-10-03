@@ -3,6 +3,7 @@ import { Card, Badge } from "flowbite-react";
 import { FaStar } from "react-icons/fa";
 import { IGenre, IMovieItem } from "../../api/interfaces";
 import { useSelector } from "react-redux";
+import { ImageUrl } from "../../assets";
 
 export const MovieItemCard = (props: IMovieItem) => {
   const genresState = useSelector((state: any) => state.genres);
@@ -39,6 +40,14 @@ export const MovieItemCard = (props: IMovieItem) => {
     );
   };
 
+  const renderPoster = () => {
+    if (props.poster_path == null) {
+      return ImageUrl.notFoundPoster;
+    } else {
+      return `https://image.tmdb.org/t/p/original${props.poster_path}`;
+    }
+  };
+
   const handleDetails = (id: number) => {
     console.log("NUMBER ID: ", id);
   };
@@ -47,7 +56,7 @@ export const MovieItemCard = (props: IMovieItem) => {
     <Card
       className="max-w-sm mb-4 cursor-pointer"
       imgAlt="Poster"
-      imgSrc={`https://image.tmdb.org/t/p/original/${props.poster_path}`}
+      imgSrc={renderPoster()}
       onClick={() => handleDetails(props.id)}
     >
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
