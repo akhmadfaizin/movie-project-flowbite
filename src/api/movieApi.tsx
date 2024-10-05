@@ -49,3 +49,13 @@ export const moviesSearchByTitle = async (
     throw error;
   }
 };
+
+export const movieDetailById = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}movie/${id}?${API_KEY}`);
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching movie data:", error);
+    throw error;
+  }
+};
