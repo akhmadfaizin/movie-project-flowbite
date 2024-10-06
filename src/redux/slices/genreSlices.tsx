@@ -13,11 +13,18 @@ const initialState: GenreState = {
   error: null,
 };
 
-// Async thunk for fetching genres
-export const fetchGenres = createAsyncThunk("genres/fetchGenres", async () => {
-  const response = await movieGenreList(); // Call your API
-  return response.genres;
-});
+export const fetchGenres = createAsyncThunk(
+  "genres/fetchGenres",
+  async (_, { getState }) => {
+    const state = getState() as { genres: GenreState };
+    if (state.genres.genres.length > 0) {
+      // If genres are already in the state, don't fetch again
+      return state.genres.genres;
+    }
+    const response = await movieGenreList();
+    return response.genres;
+  }
+);
 
 const genreSlice = createSlice({
   name: "genres",
